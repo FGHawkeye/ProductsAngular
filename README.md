@@ -12,3 +12,8 @@ El proyecto esta pensado para usarse de manera local, para eso se debera:
 - Revisar en el "appsettings.json" el campo ConnectionStrings y cambiarlo de acuerdo a su base de datos.
 - Los endpoints del backend estan expuestos mediante swagger
 
+Funcionalidad
+===
+
+- Alta de categorias
+- Alta, Baja, Modificacion y Lectura de productos (Tiene que existir al menos una categoria para la creacion)
