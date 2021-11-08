@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <h1 class="text-center">Product List</h1>
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">Name</th>
+            <th class="text-center">Description</th>
+            <th class="text-center">Image</th>
+            <th class="text-center">Category</th>
+            <th class="text-center">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{ product.product.name }}</td>
+            <td>{{ product.product.description }}</td>
+            <td>{{ product.product.image }}</td>
+            <td>{{ product.category.name }}</td>
+            <td>
+              <button type="button" class="btn btn-info btn-sm mr-2" (click)="showEditProductForm(product)">Edit</button>
+
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeProduct(product)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-success" (click)="showAddProductForm()">Add New Product</button>
+      <button class="btn btn-success ml-2" (click)="showAddCategoryForm()">Add New Category</button>
+
+      <div class="mt-4">
+        <form *ngIf="productForm">
+          <h2>Add New Product</h2>
+          <p>Name: <input type="text" name="productName" [(ngModel)]="newProduct.product.name" /></p>
+          <p>Description: <input type="text" name="description" [(ngModel)]="newProduct.product.description" /></p>
+          <p>Image: <input type="file" name="image" [(ngModel)]="newProduct.product.image" /></p>
+          <p>Category: 
+            <select type="text" name="category" [(ngModel)]="newProduct.category" >
+              <option *ngFor="let c of categories" [ngValue]="c">{{c.name}}</option>
+            </select>
+          </p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="saveProduct(newProduct)">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelNewProduct()">Cancel</button>
+          </p>
+        </form>
+
+        <form *ngIf="editProductForm">
+          <h2>Edit Product</h2>
+          <p>Name: <input type="text" name="productName" [(ngModel)]="editedProduct.product.name" /></p>
+          <p>Description: <input type="text" name="description" [(ngModel)]="editedProduct.product.description" /></p>
+          <p>Image: <input type="file" name="image" [(ngModel)]="editedProduct.product.image" /></p>
+          <p>Category: 
+            <select type="text" name="category" [(ngModel)]="editedProduct.category" >
+              <option *ngFor="let c of categories" [ngValue]="c" [selected]="c.categoryID === editedProduct.category.categoryID">{{c.name}}</option>
+            </select>
+          </p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="updateProduct()">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button>
+          </p>
+        </form>
+
+        <form *ngIf="categoryForm">
+          <h2>Add New Category</h2>
+          <p>Name: <input type="text" name="categoryName" [(ngModel)]="newCategory.name" /></p>
+          <p>
+            <button type="button" class="btn btn-primary mr-2" (click)="saveCategory(newCategory)">Submit</button>
+            <button type="button" class="btn btn-warning" (click)="cancelCategory()">Cancel</button>
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <ngb-alert #staticAlert *ngIf="isOpenAlert" type="success" dismissOnTimeout="5000" (closed)="isOpenAlert = false">
+    {{alertMessage}}
+  </ngb-alert>
+
+</div>
